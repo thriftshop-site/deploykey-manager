@@ -4,5 +4,8 @@
   "description": "## Usage",
   "author": "GoldCoders",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "@octokit/core": "^3.2.1",
+    "dotenv": "^8.2.0"
+  }
 }

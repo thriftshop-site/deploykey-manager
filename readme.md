@@ -1,35 +1,47 @@
-# Netlify Microservice Function
+# Thriftshop Deploy Key Manager
 
-## Requirements:
-- netlify-cli
-- git/github
+## Development
 
-- [ ] Clone this Repo
+- cp .env.example .env
 
-```sh
-git clone https://github.com/thriftshop-site/template MICROSERVICE_NAME
-cd  MICROSERVICE_NAME
+- edit .env
+
+```toml
+GITHUB_ACCESS_TOKEN=
 ```
 
-- [ ] cp .env.example .env anad edit .env
+- [Create A New Personal Access Token](https://github.com/settings/tokens/new?scopes=admin:public_key)
 
-- [ ] Create New API Function
-
-```sh
-netlify functions:create --name api
+example success response
+```js
+{
+    "data": {
+        "id": 47801810,
+        "key": "ssh-rsa SOMERANDOMSTRING",
+        "url": "https://api.github.com/user/keys/47801810",
+        "title": "example.thriftshop.site",
+        "verified": true,
+        "created_at": "2020-11-14T09:06:12Z",
+        "read_only": false
+    }
+}
 ```
 
-- [ ] Install Any NPM Dependencies
+ example error message
 
-```sh
-npm install package1 package2 package3
+```json
+HttpError: Validation Failed: {"resource":"PublicKey","code":"custom","field":"key","message":"key is already in use"}
 ```
 
-- [ ] Update netlify.toml template variable
+## Deploy
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/thriftshop-site/deploykey-manager)
 
+## Set Your Domain In Netlify
 
-- [ ] Modify 1 Click Deploy URL
+- Go to [Settings](https://app.netlify.com/sites/tss-test/settings/general)
 
-- Replace Button URL With Your Repo Link `https://app.netlify.com/start/deploy?repository=https://github.com/thriftshop-fn/MICROSERVICE_NAME`
+- Click Change Site Name `tss-fn-deploykey-manager.thriftshop.site`
 
-- [ ] Modify template-readme.md and save it as readme.md
+## Production
+
+- make post request with Needed *payload* to `tss-fn-deploykey-manager.thriftshop.site/api`
